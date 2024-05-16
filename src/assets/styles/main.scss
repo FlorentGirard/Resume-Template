@@ -1,5 +1,15 @@
-html {
+#app {
   font-family: $mainFont;
-  font-size: $fontSize * 1.4 !important;
+  font-size: $fontSize * 1.6 !important;
+  font-weight: 400;
   color: $mainColor;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+}
+
+.icon__picture {
+  margin-right: 20px !important;
 }

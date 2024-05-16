@@ -2,6 +2,8 @@
 import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
 import { ref } from 'vue'
+import MyPresentation from './MyPresentation.vue'
+
 const resume = ref<HTMLAnchorElement | null>(null)
 
 const downloadPdf = () => {
@@ -40,7 +42,7 @@ const downloadPdf = () => {
       <div class="decor">
         <div class="decor__svg">
           <div class="container">
-            <Presentation />
+            <MyPresentation />
           </div>
         </div>
       </div>
@@ -55,12 +57,12 @@ const downloadPdf = () => {
   margin: auto;
 }
 .decor {
-  background-image: url(../assets/picture/gradient.svg);
+  background-image: url(../../public/picture/gradient.svg);
   height: 1600px;
 }
 
 .decor__svg {
-  background-image: url(../assets/picture/Flares.svg);
+  background-image: url(../../public/picture/Flares.svg);
   width: 100%;
   height: 500px;
 }
