@@ -1,9 +1,9 @@
 <template>
-  <div></div>
+  <div>
+    <h1>Hello</h1>
+  </div>
 </template>
 
-<script setup lang="ts">
-const ref = null()
-</script>
+<script setup lang="ts"></script>
 
 <style scoped></style>
