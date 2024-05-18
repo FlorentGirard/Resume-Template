@@ -1,7 +1,8 @@
 <template>
   <div>
     <h3 class="head">
-      <img :src="`../../public/picture/${icon}`" /> <span class="head__title">{{ title }}</span>
+      <img :src="`../../public/picture/${icon}`" />
+      <span class="head__title">{{ title }}</span>
     </h3>
   </div>
 </template>

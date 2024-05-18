@@ -5,6 +5,7 @@ import { ref } from 'vue'
 import MyPresentation from './MyPresentation.vue'
 import HeadSection from './HeadSection.vue'
 import MainTechnos from './MainTechnos.vue'
+import WorkExperience from './WorkExperience.vue'
 
 const resume = ref<HTMLAnchorElement | null>(null)
 
@@ -37,7 +38,7 @@ const downloadPdf = () => {
   }
 }
 
-const technos = ref(['VueJs', 'ReactJs', 'NodeJs', 'NestJs'])
+const technos = ref(['vue.png', 'react.png', 'nodejs.png', 'nestjs.png'])
 const skills = ref([
   'AWS',
   'Docker',
@@ -53,6 +54,32 @@ const skills = ref([
   'Github',
   'Méthododologie Agile'
 ])
+const experience = ref([
+  {
+    name: 'Company Name',
+    post: 'Role at the company',
+    description: 'A short Description',
+    logo: 'compagny_1.svg',
+    startDateWork: '2023',
+    endDateWork: '2024'
+  },
+  {
+    name: 'Company Name',
+    post: 'Role at the company',
+    description: 'A short Description',
+    logo: 'compagny_2.svg',
+    startDateWork: '2023',
+    endDateWork: '2024'
+  },
+  {
+    name: 'Company Name',
+    post: 'Role at the company',
+    description: 'A short Description',
+    logo: 'compagny_3.svg',
+    startDateWork: '2023',
+    endDateWork: '2024'
+  }
+])
 </script>
 <template>
   <div>
@@ -65,12 +92,23 @@ const skills = ref([
             <HeadSection title="Technos" icon="technos.svg" />
 
             <div class="myResume__mainTechnos">
-              <MainTechnos v-for="item in technos" :key="item" :name="item" />
+              <MainTechnos v-for="item in technos" :key="item" :picture="item" />
             </div>
             <ul class="myResume__skill">
               <li v-for="item in skills" :key="item" class="myResume__skill-item">{{ item }}</li>
             </ul>
             <HeadSection title="Expériences" icon="work.svg" />
+            <WorkExperience
+              v-for="item in experience"
+              :key="item.name"
+              :nameCompagny="item.name"
+              :startDateWork="item.startDateWork"
+              :endDateWork="item.endDateWork"
+              :roleCompagny="item.post"
+              :description="item.description"
+              :logo="item.logo"
+            />
+            <HeadSection title="Formations" icon="education.svg" />
           </div>
         </div>
       </div>
@@ -100,6 +138,7 @@ const skills = ref([
   max-width: 1050px;
   margin: auto;
   padding-top: 115px;
+  padding-bottom: 100px;
 }
 
 .resume__button {
@@ -117,6 +156,7 @@ const skills = ref([
 
 .myResume__mainTechnos {
   display: flex;
+  justify-content: center;
   margin-bottom: 45px;
 }
 
@@ -130,7 +170,7 @@ const skills = ref([
   padding: 20px;
   border-radius: 25px;
   height: 10px;
-  background-color: #d9d9d9;
+  background-color: rgba(#f1d8bb, 0.8);
   margin: 5px;
 }
 </style>
