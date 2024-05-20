@@ -1,0 +1,15 @@
+#app {
+  font-family: $mainFont;
+  font-size: $fontSize * 2.4 !important;
+  font-weight: 400;
+  color: $mainColor;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+}
+
+.icon__picture {
+  margin-right: 20px !important;
+}
