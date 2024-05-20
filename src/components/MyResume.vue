@@ -5,36 +5,38 @@ import { ref } from 'vue'
 import MyPresentation from './MyPresentation.vue'
 import HeadSection from './HeadSection.vue'
 import MainTechnos from './MainTechnos.vue'
-import WorkExperience from './WorkExperience.vue'
+import SectionResume from './SectionResume.vue'
 
 const resume = ref<HTMLAnchorElement | null>(null)
-
-const downloadPdf = () => {
+const downloadPdf = async () => {
   if (resume.value) {
-    const contentWidth = resume.value.offsetWidth
-    const contentHeight = resume.value.offsetHeight
-    console.log('largeur', contentWidth)
-    console.log('hauteur', contentHeight)
+    const contentHeight = resume.value.scrollHeight
+    const contentWidth = resume.value.scrollWidth
+    const aspectRatio = contentWidth / contentHeight
+
+    // A4 dimensions in pixels at 96 DPI
+    const pageHeight = 841.89
+    const pdfHeight = pageHeight * 2
+    const pdfWidth = pageHeight * aspectRatio * 2
 
     const pdf = new jsPDF({
-      orientation: 'landscape',
-      unit: 'px',
-      format: [contentWidth, contentHeight]
+      orientation: 'portrait',
+      unit: 'pt',
+      format: [pdfWidth, pdfHeight]
     })
 
-    html2canvas(resume.value, {
-      scale: 1,
-      backgroundColor: null
-    }).then((canvas: any) => {
-      const imgData = canvas.toDataURL('image/png')
-
-      const imgWidth = contentWidth // Largeur de la page A4 en mm
-      const imgHeight = (contentHeight * imgWidth) / contentWidth
-
-      pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight)
-
-      pdf.save('document.pdf')
+    const canvas = await html2canvas(resume.value, {
+      scale: 1
     })
+
+    const imgData = canvas.toDataURL('image/png')
+
+    const imgWidth = pdfWidth
+    const imgHeight = (canvas.height * imgWidth) / canvas.width
+
+    pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight)
+
+    pdf.save('CV.pdf')
   }
 }
 
@@ -57,60 +59,105 @@ const skills = ref([
 const experience = ref([
   {
     name: 'Company Name',
-    post: 'Role at the company',
+    subtitle: 'Role at the company',
     description: 'A short Description',
     logo: 'compagny_1.svg',
-    startDateWork: '2023',
-    endDateWork: '2024'
+    startDate: '2023',
+    endDate: '2024',
+    detail: [
+      "Detail significant projects or initiatives you've led or contributed to, emphasizing the skills you utilized and the tangible outcomes or achievements resulting from your efforts.",
+      "   Detail significant projects or initiatives you've led or contributed to, emphasizing the skills you utilized and the tangible outcomes or achievements resulting from your efforts."
+    ]
   },
   {
     name: 'Company Name',
-    post: 'Role at the company',
+    subtitle: 'Role at the company',
     description: 'A short Description',
     logo: 'compagny_2.svg',
-    startDateWork: '2023',
-    endDateWork: '2024'
+    startDate: '2023',
+    endDate: '2024',
+    detail: [
+      "Detail significant projects or initiatives you've led or contributed to, emphasizing the skills you utilized and the tangible outcomes or achievements resulting from your efforts.",
+      "   Detail significant projects or initiatives you've led or contributed to, emphasizing the skills you utilized and the tangible outcomes or achievements resulting from your efforts."
+    ]
   },
   {
     name: 'Company Name',
-    post: 'Role at the company',
+    subtitle: 'Role at the company',
     description: 'A short Description',
     logo: 'compagny_3.svg',
-    startDateWork: '2023',
-    endDateWork: '2024'
+    startDate: '2023',
+    endDate: '2024',
+    detail: [
+      "Detail significant projects or initiatives you've led or contributed to, emphasizing the skills you utilized and the tangible outcomes or achievements resulting from your efforts.",
+      "   Detail significant projects or initiatives you've led or contributed to, emphasizing the skills you utilized and the tangible outcomes or achievements resulting from your efforts."
+    ]
+  }
+])
+
+const formation = ref([
+  {
+    name: 'University 1',
+    subtitle: 'Major of Studies',
+    description:
+      'Write concisely about your academic journey, focusing on how your studies have enhanced your professional skills and prepared you for your chosen career. Be sure to mention your degree, major, any minors, honors or awards you received, and how these specifically contributed to your development.',
+    startDate: '2023',
+    endDate: '2024'
+  },
+  {
+    name: 'University 2',
+    subtitle: 'Major of Studies',
+    description:
+      'Write concisely about your academic journey, focusing on how your studies have enhanced your professional skills and prepared you for your chosen career. Be sure to mention your degree, major, any minors, honors or awards you received, and how these specifically contributed to your development.',
+    startDate: '2023',
+    endDate: '2024'
+  },
+  {
+    name: 'University 3',
+    subtitle: 'Major of Studies',
+    description:
+      'Write concisely about your academic journey, focusing on how your studies have enhanced your professional skills and prepared you for your chosen career. Be sure to mention your degree, major, any minors, honors or awards you received, and how these specifically contributed to your development.',
+    startDate: '2023',
+    endDate: '2024'
   }
 ])
 </script>
 <template>
   <div>
     <button @click="downloadPdf" class="resume__button">Download CV</button>
-    <div class="wrapper" ref="resume">
-      <div class="decor">
-        <div class="decor__svg">
-          <div class="container">
-            <MyPresentation />
-            <HeadSection title="Technos" icon="technos.svg" />
 
-            <div class="myResume__mainTechnos">
-              <MainTechnos v-for="item in technos" :key="item" :picture="item" />
-            </div>
-            <ul class="myResume__skill">
-              <li v-for="item in skills" :key="item" class="myResume__skill-item">{{ item }}</li>
-            </ul>
-            <HeadSection title="Expériences" icon="work.svg" />
-            <WorkExperience
-              v-for="item in experience"
-              :key="item.name"
-              :nameCompagny="item.name"
-              :startDateWork="item.startDateWork"
-              :endDateWork="item.endDateWork"
-              :roleCompagny="item.post"
-              :description="item.description"
-              :logo="item.logo"
-            />
-            <HeadSection title="Formations" icon="education.svg" />
-          </div>
+    <div class="wrapper" ref="resume">
+      <div class="container">
+        <MyPresentation />
+        <HeadSection title="Technos" icon="technos.svg" />
+        <div class="myResume__mainTechnos">
+          <MainTechnos v-for="item in technos" :key="item" :picture="item" />
         </div>
+        <ul class="myResume__skill">
+          <li v-for="item in skills" :key="item" class="myResume__skill-item">{{ item }}</li>
+        </ul>
+        <HeadSection title="Expériences" icon="work.svg" />
+        <SectionResume
+          v-for="item in experience"
+          :key="item.name"
+          :nameSection="item.name"
+          :startDate="item.startDate"
+          :endDate="item.endDate"
+          :subtitle="item.subtitle"
+          :description="item.description"
+          :logo="item.logo"
+          :detail="item.detail"
+        />
+        <HeadSection title="Formations" icon="education.svg" />
+        <SectionResume
+          v-for="item in formation"
+          :key="item.name"
+          :nameSection="item.name"
+          :startDate="item.startDate"
+          :endDate="item.endDate"
+          :subtitle="item.subtitle"
+          :description="item.description"
+        />
       </div>
     </div>
   </div>
@@ -120,18 +167,9 @@ const experience = ref([
   max-width: 1600px;
   height: auto;
   background-color: #fff;
+  background: url(../../public/picture/Effects_Yellow.svg);
+  background-repeat: no-repeat;
   margin: auto;
-}
-.decor {
-  // background-image: url(../../public/picture/gradient.svg);
-  background-image: url(../../public/picture/Effects_Yellow.svg);
-  height: 1600px;
-}
-
-.decor__svg {
-  // background-image: url(../../public/picture/Flares.svg);
-  width: 100%;
-  height: 500px;
 }
 
 .container {

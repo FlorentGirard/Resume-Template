@@ -21,7 +21,7 @@ defineProps<{
   width: 160px;
   height: 160px;
   margin: 0 33px;
-  background-color: rgba(#dedfe3, 1);
+  background-color: $secondaryColor;
   border-radius: 30px;
   filter: blur(1px);
   display: flex;

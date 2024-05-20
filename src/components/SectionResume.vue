@@ -1,42 +1,36 @@
 <template>
   <div class="workExperience">
-    <header class="workExperience__head">
-      <img :src="`../../public/picture/compagny/${logo}`" alt="" class="test" />
+    <header class="workExperience__head" :class="{ 'workExperience__head--logo': logo }">
+      <img :src="`../../public/picture/compagny/${logo}`" alt="" />
       <div>
         <div class="workExperience__flex">
-          <h3 class="workExperience__title">{{ nameCompagny }}</h3>
+          <h3 class="workExperience__title">{{ nameSection }}</h3>
           <div class="workExperience__date">
-            <time :datetime="startDateWork">{{ startDateWork }}</time> -
-            <time :datetime="endDateWork">{{ endDateWork }}</time>
+            <time :datetime="startDate">{{ startDate }}</time> -
+            <time :datetime="endDate">{{ endDate }}</time>
           </div>
         </div>
-        <h4 class="workExperience__subtitle">{{ roleCompagny }}</h4>
+        <h4 class="workExperience__subtitle">{{ subtitle }}</h4>
       </div>
     </header>
-    <p>
+    <p class="workExperience__description">
       {{ description }}
     </p>
     <ul class="workExperience__detail">
-      <li class="workExperience__list">
-        Detail significant projects or initiatives you've led or contributed to, emphasizing the
-        skills you utilized and the tangible outcomes or achievements resulting from your efforts.
-      </li>
-      <li class="workExperience__list">
-        Detail significant projects or initiatives you've led or contributed to, emphasizing the
-        skills you utilized and the tangible outcomes or achievements resulting from your efforts.
-      </li>
+      <li class="workExperience__list" v-for="item in detail" :key="item">{{ item }}</li>
     </ul>
   </div>
 </template>
 
 <script setup lang="ts">
 defineProps<{
-  nameCompagny: string
-  startDateWork: string
-  endDateWork: string
-  roleCompagny: string
+  nameSection: string
+  startDate: string
+  endDate: string
+  subtitle: string
   description: string
-  logo: string
+  logo?: string
+  detail?: Array<string>
 }>()
 </script>
 
@@ -47,7 +41,10 @@ defineProps<{
 .workExperience__head {
   display: flex;
   margin-bottom: $gutter * 5;
-  transform: translateX(-15px);
+
+  &--logo {
+    transform: translateX(-15px);
+  }
 }
 
 .workExperience__flex {
@@ -79,6 +76,10 @@ defineProps<{
     width: 28px; /* Width of the SVG */
     height: 28px; /* Height of the SVG */
   }
+}
+
+.workExperience__description {
+  margin-bottom: $gutter * 2;
 }
 
 .workExperience__date {
