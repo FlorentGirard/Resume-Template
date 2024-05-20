@@ -1,6 +1,9 @@
 # Resume-Template
 this template helps you create your resume and downlod resume in pdf.
 
+
+![Resume-Version-Yellow](https://github.com/FlorentGirard/Resume-Template/assets/86594250/c6767ae8-be36-45a7-8071-f46f072ef01b)
+
 ## BUG
 
 Currently, the links of the CV in pdf are not active. To activate the links, download CV and then modify pdf with generator: for example: https://www.sejda.com/fr/pdf-editor
