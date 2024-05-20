@@ -3,23 +3,35 @@
     <div class="presentation__container">
       <div class="presentation__avatar">
         <div class="presentation__border">
-          <div class="presentation__picture"></div>
+          <img
+            :src="`../../public/picture/${avatar}`"
+            alt="Photo Profil"
+            class="presentation__avatar"
+          />
         </div>
       </div>
       <div class="presentation__info">
-        <h1 class="presentation__name">Your Name</h1>
-        <h2 class="presentation__headline">A short but captivating headline</h2>
+        <h1 class="presentation__name">{{ name }}</h1>
+        <h2 class="presentation__headline">{{ headline }}</h2>
         <h3 class="icon">
           <img src="../../public/picture/presentation/location.svg" class="icon__picture" alt="" />
-          <span class="presentation__label">Lille,Hauts de France</span>
+          <span class="presentation__label">{{ localisation }}</span>
         </h3>
         <ul class="presentation__list">
           <li v-for="item in linkPresentation" :key="item.label" class="presentation__list--item">
             <a :href="item.link" class="icon presentation__link">
               <img
+                :src="`../../public/picture/presentation/yellow/${item.icon}`"
+                class="icon__picture presentation__link--picture"
+                alt=""
+                v-if="item.label === 'Email'"
+              />
+
+              <img
                 :src="`../../public/picture/presentation/${item.icon}`"
                 class="icon__picture presentation__link--picture"
                 alt=""
+                v-else
               />
               <span class="presentation__label">{{ item.label }}</span>
             </a>
@@ -27,26 +39,24 @@
         </ul>
       </div>
     </div>
-    <p class="presentation__intro">
-      Write a short introduction for your CV, start with your job title or main skill, followed by
-      your key achievements or experiences, and then your career goals. Make sure it's concise,
-      typically 2-3 sentences, and tailored to the role you're applying for, highlighting how your
-      skills and experiences make you a perfect fit for the position.
-    </p>
+    <p class="presentation__intro">{{ bio }}</p>
   </div>
 </template>
 
 <script setup lang="ts">
-const linkPresentation = [
-  {
-    icon: 'email.svg',
-    link: '#',
-    label: 'Email'
-  },
-  { icon: 'linkedin.svg', link: '#', label: 'Linkedin' },
-  { icon: 'github.svg', link: '#', label: 'Github' },
-  { icon: 'internet.svg', link: '#', label: 'MyWebsite' }
-]
+interface linkPresentationType {
+  icon: string
+  link: string
+  label: string
+}
+defineProps<{
+  name: string
+  headline: string
+  localisation: string
+  linkPresentation: linkPresentationType[]
+  bio: string
+  avatar: string
+}>()
 </script>
 
 <style scoped lang="scss">
@@ -55,21 +65,18 @@ const linkPresentation = [
     display: flex;
   }
   &__border {
-    width: 260px;
-    height: 260px;
+    width: 220px;
+    height: 220px;
     border-radius: 50%;
-    border: 5px solid $secondaryColor;
-    position: relative;
+    border: 5px solid $secondaryColorYellow;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-  &__picture {
-    width: 226px;
-    height: 226px;
+  &__avatar {
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
-    background-color: #d9d9d9;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
   }
 
   &__info {

@@ -1,9 +1,10 @@
 <template>
   <div>
     <h3 class="head">
-      <img :src="`../../public/picture/${icon}`" />
+      <img :src="`../../public/picture/sectionResume/yellow/${icon}`" />
       <span class="head__title">{{ title }}</span>
     </h3>
+    <slot></slot>
   </div>
 </template>
 

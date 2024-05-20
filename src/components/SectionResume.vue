@@ -2,6 +2,7 @@
   <div class="workExperience">
     <header class="workExperience__head" :class="{ 'workExperience__head--logo': logo }">
       <img :src="`../../public/picture/compagny/${logo}`" alt="" />
+
       <div>
         <div class="workExperience__flex">
           <h3 class="workExperience__title">{{ nameSection }}</h3>
@@ -35,6 +36,16 @@ defineProps<{
 </script>
 
 <style scoped lang="scss">
+.test {
+  width: 86px;
+  height: 86px;
+  flex: none;
+  background-color: $secondaryColorYellow;
+  border-radius: 35px;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+}
 .workExperience {
   margin-bottom: $gutter * 7;
 }
@@ -61,7 +72,7 @@ defineProps<{
 }
 
 .workExperience__subtitle {
-  color: $colorAlt;
+  color: $colorAltYellow;
   font-size: 24px;
 }
 
@@ -70,7 +81,7 @@ defineProps<{
   margin-top: $gutter * 2;
 
   &::before {
-    content: url(' ../../public/picture/Bullet.svg ');
+    content: url(' ../../public/picture/effect/yellow/Bullet.svg ');
     padding-right: 20px;
 
     width: 28px; /* Width of the SVG */

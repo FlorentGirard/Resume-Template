@@ -1,18 +1,15 @@
 <template>
-  <!--  <div class="technos">
-    <span class="technos__name">{{ name }}</span>
-  </div> -->
   <div>
-    <!-- <img src="../../public/picture/logo.png" alt="" class="test" /> -->
     <div class="technos">
-      <img :src="`../../public/picture/technos/${picture}`" alt="" class="technos__picture" />
+      <img :src="`../../public/picture/technos/${logo}`" :alt="alt" class="technos__picture" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 defineProps<{
-  picture: String
+  logo: string
+  alt: string
 }>()
 </script>
 
@@ -21,7 +18,7 @@ defineProps<{
   width: 160px;
   height: 160px;
   margin: 0 33px;
-  background-color: $secondaryColor;
+  background-color: $secondaryColorYellow;
   border-radius: 30px;
   filter: blur(1px);
   display: flex;
