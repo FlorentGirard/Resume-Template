@@ -1,18 +1,10 @@
-# test
+# Resume-Template
+this template helps you create your resume and downlod resume in pdf.
 
-This template should help get you started developing with Vue 3 in Vite.
+## BUG
 
-## Recommended IDE Setup
+Currently, the links of the CV in pdf are not active. To activate the links, download CV and then modify pdf with generator: for example: https://www.sejda.com/fr/pdf-editor
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
 
 ## Project Setup
 
@@ -37,3 +29,7 @@ npm run build
 ```sh
 npm run lint
 ```
+
+### Edit Data
+- Update store with data
+- Replace or use default picture 
