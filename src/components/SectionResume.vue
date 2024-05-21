@@ -1,7 +1,10 @@
 <template>
   <div class="workExperience">
-    <header class="workExperience__head" :class="{ 'workExperience__head--logo': logo }">
-      <img :src="`../../public/picture/compagny/${logo}`" alt="" />
+    <header class="workExperience__head">
+      <!--  <img :src="`../../public/picture/compagny/${logo}`" alt="" /> -->
+      <div class="workExperience__logo" v-if="logo">
+        <img :src="`../../public/picture/compagny/${logo}`" alt="" />
+      </div>
 
       <div>
         <div class="workExperience__flex">
@@ -36,18 +39,22 @@ defineProps<{
 </script>
 
 <style scoped lang="scss">
-.test {
-  width: 86px;
-  height: 86px;
-  flex: none;
-  background-color: $secondaryColorYellow;
-  border-radius: 35px;
-  display: flex;
-  justify-content: center;
-  align-self: center;
-}
 .workExperience {
   margin-bottom: $gutter * 7;
+}
+
+.workExperience__logo {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: rgba($secondaryColorYellow, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 15px;
+  filter: blur(1px);
+
+  // background-color: aqua;
 }
 .workExperience__head {
   display: flex;

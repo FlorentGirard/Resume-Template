@@ -18,13 +18,17 @@
           <span class="presentation__label">{{ localisation }}</span>
         </h3>
         <ul class="presentation__list">
-          <li v-for="item in linkPresentation" :key="item.label" class="presentation__list--item">
+          <li
+            v-for="(item, index) in linkPresentation"
+            :key="item.label"
+            class="presentation__list--item"
+          >
             <a :href="item.link" class="icon presentation__link">
               <img
                 :src="`../../public/picture/presentation/yellow/${item.icon}`"
                 class="icon__picture presentation__link--picture"
                 alt=""
-                v-if="item.label === 'Email'"
+                v-if="index == 0"
               />
 
               <img
