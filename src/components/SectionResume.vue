@@ -9,9 +9,14 @@
       <div>
         <div class="workExperience__flex">
           <h3 class="workExperience__title">{{ nameSection }}</h3>
-          <div class="workExperience__date">
+          <div class="workExperience__date" v-if="startDate || endDate">
             <time :datetime="startDate">{{ startDate }}</time> -
             <time :datetime="endDate">{{ endDate }}</time>
+          </div>
+          <div v-else>
+            <a :href="linkRepository" workExperience__link class="workExperience__link">
+              <span>Voir code Source</span>
+            </a>
           </div>
         </div>
         <h4 class="workExperience__subtitle">{{ subtitle }}</h4>
@@ -29,10 +34,11 @@
 <script setup lang="ts">
 defineProps<{
   nameSection: string
-  startDate: string
-  endDate: string
+  startDate?: string
+  endDate?: string
   subtitle: string
   description: string
+  linkRepository?: string
   logo?: string
   detail?: Array<string>
 }>()
@@ -104,5 +110,23 @@ defineProps<{
   color: #656a7b;
   font-size: 24px;
   float: right;
+}
+
+.workExperience__link {
+  cursor: pointer;
+  color: $colorAltYellow;
+  font-size: 20px;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 42px;
+  border-radius: 15px;
+  background-color: $secondaryColorYellow;
+
+  &::after {
+    content: url('../../public/picture/effect/yellow/arrow_right_alt.svg');
+    padding-left: 15px;
+  }
 }
 </style>

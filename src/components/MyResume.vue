@@ -6,16 +6,17 @@ import MyPresentation from './MyPresentation.vue'
 import HeadSection from './HeadSection.vue'
 import MainTechnos from './MainTechnos.vue'
 import SectionResume from './SectionResume.vue'
-import { PhGraduationCap, PhBuilding, PhPen } from '@phosphor-icons/vue'
 import { usePresentationStore } from '@/store/presentation'
 import { useTechnosStore } from '@/store/technos'
 import { useExperienceStore } from '@/store/experience'
 import { useFormationStore } from '@/store/formation'
+import { useProjectPersoStore } from '@/store/projectPerso'
 
 const presentationData = usePresentationStore()
 const technosData = useTechnosStore()
 const experienceData = useExperienceStore()
 const formationData = useFormationStore()
+const projectPersoData = useProjectPersoStore()
 
 const resume = ref<HTMLAnchorElement | null>(null)
 const downloadPdf = async () => {
@@ -36,10 +37,10 @@ const downloadPdf = async () => {
     })
 
     const canvas = await html2canvas(resume.value, {
-      scale: 1
+      scale: 0.9
     })
 
-    const imgData = canvas.toDataURL('image/png')
+    const imgData = canvas.toDataURL('image/jpeg', 0.8)
 
     const imgWidth = pdfWidth
     const imgHeight = (canvas.height * imgWidth) / canvas.width
@@ -97,6 +98,17 @@ const downloadPdf = async () => {
         <HeadSection title="Formations" icon="education.svg">
           <SectionResume
             v-for="item in formationData.formation"
+            :key="item.name"
+            :nameSection="item.name"
+            :startDate="item.startDate"
+            :endDate="item.endDate"
+            :subtitle="item.subtitle"
+            :description="item.description"
+          />
+        </HeadSection>
+        <HeadSection title="Projet perso" icon="people.svg">
+          <SectionResume
+            v-for="item in projectPersoData.projectPerso"
             :key="item.name"
             :nameSection="item.name"
             :startDate="item.startDate"
