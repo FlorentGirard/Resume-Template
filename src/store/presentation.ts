@@ -12,7 +12,7 @@ export const usePresentationStore = defineStore('dataResume', {
           link: '#',
           label: 'Email'
         },
-        { icon: 'linkedin.svg', link: '#', label: 'Linkedin' },
+        { icon: 'linkedin.svg', link: 'https://www.linkedin.com/feed/', label: 'Linkedin' },
         { icon: 'github.svg', link: '#', label: 'Github' },
         { icon: 'internet.svg', link: '#', label: 'MyWebsite' }
       ],

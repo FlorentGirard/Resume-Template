@@ -19,33 +19,61 @@ const formationData = useFormationStore()
 const projectPersoData = useProjectPersoStore()
 
 const resume = ref<HTMLAnchorElement | null>(null)
+
+//TODO: refact and optimize size pdf actually 1.5 mo
 const downloadPdf = async () => {
   if (resume.value) {
     const contentHeight = resume.value.scrollHeight
     const contentWidth = resume.value.scrollWidth
     const aspectRatio = contentWidth / contentHeight
 
-    // A4 dimensions in pixels at 96 DPI
-    const pageHeight = 841.89
-    const pdfHeight = pageHeight * 2
-    const pdfWidth = pageHeight * aspectRatio * 2
+    // Dimensions A4
+    const pageWidth = 210
+
+    // Calcul des dimensions du PDF basé sur le ratio d'aspect
+    const pdfWidth = pageWidth
+    const pdfHeight = pdfWidth / aspectRatio
 
     const pdf = new jsPDF({
       orientation: 'portrait',
-      unit: 'pt',
+      unit: 'mm',
       format: [pdfWidth, pdfHeight]
     })
 
+    // Capturer tout le contenu HTML avec html2canvas
     const canvas = await html2canvas(resume.value, {
-      scale: 0.9
+      scale: 2 // Augmenter l'échelle pour une meilleure résolution
     })
 
+    // Convertir le canvas en image JPEG pour le PDF
     const imgData = canvas.toDataURL('image/jpeg', 0.8)
 
+    // Dimensions de l'image dans le PDF
     const imgWidth = pdfWidth
     const imgHeight = (canvas.height * imgWidth) / canvas.width
 
-    pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight)
+    // Ajouter l'image capturée au PDF
+    pdf.addImage(imgData, 'jpeg', 0, 0, imgWidth, imgHeight)
+
+    // Ajouter les liens au PDF avec jsPDF
+    const links = resume.value.querySelectorAll('a')
+    links.forEach((link) => {
+      const rect = link.getBoundingClientRect()
+      console.log(rect)
+      const left = rect.left + window.scrollX // Inclure le décalage horizontal
+      const top = rect.top + window.scrollY // Inclure le décalage vertical
+      const width = rect.width
+      const height = rect.height
+
+      // Convertir les dimensions HTML en unités PDF
+      const x = (left * pdfWidth) / contentWidth
+      const y = (top * pdfHeight) / contentHeight
+      const linkWidth = (width * pdfWidth) / contentWidth
+      const linkHeight = (height * pdfHeight) / contentHeight
+
+      // Ajouter le lien au PDF avec jsPDF
+      pdf.link(x, y, linkWidth, linkHeight, { url: link.href })
+    })
 
     pdf.save('CV.pdf')
   }
@@ -96,6 +124,7 @@ const downloadPdf = async () => {
         </HeadSection>
 
         <HeadSection title="Formations" icon="education.svg">
+          <a href="https://www.linkedin.com/mynetwork/grow/">Test</a>
           <SectionResume
             v-for="item in formationData.formation"
             :key="item.name"
@@ -111,10 +140,10 @@ const downloadPdf = async () => {
             v-for="item in projectPersoData.projectPerso"
             :key="item.name"
             :nameSection="item.name"
-            :startDate="item.startDate"
-            :endDate="item.endDate"
             :subtitle="item.subtitle"
             :description="item.description"
+            :link-front="item.linkFront"
+            :link-back="item.linkBack"
           />
         </HeadSection>
       </div>

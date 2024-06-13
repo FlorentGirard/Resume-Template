@@ -3,6 +3,7 @@
     <div class="technos">
       <img :src="`../../public/picture/technos/${logo}`" :alt="alt" class="technos__picture" />
     </div>
+  
   </div>
 </template>
 

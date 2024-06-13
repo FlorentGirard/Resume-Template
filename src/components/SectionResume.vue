@@ -13,9 +13,13 @@
             <time :datetime="startDate">{{ startDate }}</time> -
             <time :datetime="endDate">{{ endDate }}</time>
           </div>
-          <div v-else>
-            <a :href="linkRepository" workExperience__link class="workExperience__link">
-              <span>Voir code Source</span>
+          <div v-else class="workExperience__linkRepo">
+            <a :href="linkFront" class="workExperience__link">
+              <span v-if="linkBack === ''"> Voir Code source</span>
+              <span v-else>Frontend</span>
+            </a>
+            <a :href="linkBack" class="workExperience__link" v-if="linkBack !== ''">
+              <span>Backend</span>
             </a>
           </div>
         </div>
@@ -38,7 +42,8 @@ defineProps<{
   endDate?: string
   subtitle: string
   description: string
-  linkRepository?: string
+  linkFront?: string
+  linkBack?: string
   logo?: string
   detail?: Array<string>
 }>()
@@ -48,7 +53,6 @@ defineProps<{
 .workExperience {
   margin-bottom: $gutter * 7;
 }
-
 .workExperience__logo {
   width: 56px;
   height: 56px;
@@ -62,6 +66,7 @@ defineProps<{
 
   // background-color: aqua;
 }
+
 .workExperience__head {
   display: flex;
   margin-bottom: $gutter * 5;
@@ -77,6 +82,7 @@ defineProps<{
   align-items: center;
   width: 980px;
 }
+
 .workExperience__title {
   font-size: 40px;
   font-weight: 600;
@@ -89,44 +95,47 @@ defineProps<{
   font-size: 24px;
 }
 
+// coupable
 .workExperience__list {
   display: flex;
-  margin-top: $gutter * 2;
+
+  // margin-top: $gutter * 2;
 
   &::before {
     content: url(' ../../public/picture/effect/yellow/Bullet.svg ');
     padding-right: 20px;
-
-    width: 28px; /* Width of the SVG */
-    height: 28px; /* Height of the SVG */
+    width: 28px;
   }
-}
-
-.workExperience__description {
-  margin-bottom: $gutter * 2;
 }
 
 .workExperience__date {
   color: #656a7b;
   font-size: 24px;
-  float: right;
+  //float: right;
 }
 
 .workExperience__link {
   cursor: pointer;
   color: $colorAltYellow;
-  font-size: 20px;
-  padding: 10px 20px;
+  font-size: 15px;
+  padding: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 42px;
+  //height: 42px;
   border-radius: 15px;
   background-color: $secondaryColorYellow;
 
   &::after {
     content: url('../../public/picture/effect/yellow/arrow_right_alt.svg');
-    padding-left: 15px;
+    padding-left: 10px;
   }
+  &:first-child {
+    margin-right: 15px;
+  }
+}
+
+.workExperience__linkRepo {
+  display: flex;
 }
 </style>
